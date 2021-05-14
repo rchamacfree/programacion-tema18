@@ -37,14 +37,15 @@ public class DaoEmpleado {
         
         public Empleado buscarEmpleado(int id) throws SQLException{
             
-            String sql = "SELECT * FROM empleado WHERE id = ?";
+            String sql = "SELECT * FROM empleado WHERE id=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            String nombre = rs.getString(1);
-            Date fn = rs.getDate(2);
-            String cat = rs.getString(3);
-            Float sal = rs.getFloat(4);
+            rs.next();
+            String nombre = rs.getString("nombre");
+            Date fn = rs.getDate("fechaNacimiento");
+            String cat = rs.getString("categoria");
+            Float sal = rs.getFloat("salario");
             return new Empleado(nombre,fn,cat,sal);
         }
     
