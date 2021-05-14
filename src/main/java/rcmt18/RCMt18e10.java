@@ -16,6 +16,7 @@ Alumno: Rafael Chamorro Maceiras
 package rcmt18;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,9 +39,10 @@ public class RCMt18e10 {
                 System.out.println("1.- Buscar empleado.");
                 System.out.println("2.- Borrar empleado.");
                 System.out.println("3.- Listar empleados.");
+                System.out.println("4.- Insertar empleado");
                 System.out.println("0.- Salir.");
 
-                while(x<0 || x>3){
+                while(x<0 || x>4){
                     System.out.println("Introduce opción:");
                     x = Integer.parseInt(teclado.nextLine());
                 }
@@ -49,6 +51,7 @@ public class RCMt18e10 {
                     case 1: buscarEmpleado();break;
                     case 2: borrarEmpleado();break;
                     case 3: listarEmpleados();break;
+                    case 4: insertarEmpleado();break;
                 }
                 
                 
@@ -94,4 +97,36 @@ public class RCMt18e10 {
             
         } catch (SQLException e) { e.printStackTrace();}
     }
+    
+    public static void insertarEmpleado() throws IOException {
+        
+         try {
+            DaoEmpleado dao = DaoEmpleado.getInstance();
+        System.out.println("Introduce id:");
+        int id = Integer.parseInt(teclado.nextLine());
+        System.out.println("Nombre ?");
+        String nombre = teclado.nextLine();
+        System.out.println("fecha de nacimiento: ");
+            System.out.println("dia:"); int dia = Integer.parseInt(teclado.nextLine());
+            System.out.println("mes:"); int mes = Integer.parseInt(teclado.nextLine());
+            System.out.println("año:"); int año = Integer.parseInt(teclado.nextLine()); año = año - 1900;
+        Date fn = new Date(año,mes,dia);
+         System.out.println("Categoria:");
+         String categoria = teclado.nextLine();
+         System.out.println("Salario:");
+         float salario = Float.parseFloat(teclado.nextLine());
+         Empleado e = new Empleado(nombre,fn,categoria,salario);
+         boolean res = dao.insertarEmpleado(id, e);
+         if (res)System.out.println("Usuario creado.");
+         else System.out.println("Se ha producido un error");
+         
+         
+        } catch (SQLException e) { e.printStackTrace();}
+         
+         
+        
+    }
+    
+    
+    
 }

@@ -74,6 +74,23 @@ public class DaoEmpleado {
          return lista;
 
         }
+        
+        public boolean insertarEmpleado(int id,Empleado a) throws SQLException {
+            int cant;
+            boolean res;
+            String sql = "INSERT INTO empleado (id,nombre,fechaNacimiento,categoria,salario) VALUES (?,?,?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,id);
+            ps.setString(2,a.nombre);
+            ps.setDate(3,a.fn);
+            ps.setString(4,a.categoria);
+            ps.setFloat(5,a.salario);
+
+            cant = ps.executeUpdate();
+            if (cant !=0)return true;
+            else return false;
+            
+        }
     
     
 }
